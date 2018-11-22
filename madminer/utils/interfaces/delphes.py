@@ -24,7 +24,7 @@ def run_delphes(
     if extension == ".gz":
         logging.debug("Unzipping %s", hepmc_sample_filename)
         if not os.path.exists(filename):
-            call_command("gunzip -k {}".format(hepmc_sample_filename))
+            call_command("gunzip -c {} > {}".format(hepmc_sample_filename, hepmc_sample_filename.strip(".gz")))
         if delete_unzipped_file:
             to_delete = filename
         hepmc_sample_filename = filename
