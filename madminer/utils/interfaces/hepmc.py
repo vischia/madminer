@@ -12,7 +12,9 @@ def extract_weight_order(filename, default_weight_label=None):
     new_filename, extension = os.path.splitext(filename)
     if extension == ".gz":
         if not os.path.exists(new_filename):
-            call_command("gunzip -k {}".format(filename))
+            call_command("cp {} {}_bak".format(filename,filename))
+            call_command("gunzip {}".format(filename))
+            call_command("cp {}_bak {}".format(filename,filename))
         filename = new_filename
 
     with open(filename, encoding="latin-1") as file:
@@ -20,6 +22,8 @@ def extract_weight_order(filename, default_weight_label=None):
             terms = line.replace('"', "").split()
 
             if len(terms) == 0 or terms[0] != "N":
+                logging.debug("IT LOOKS LIKE THERE ARE NO F*CKIN WEIGHTS. len(terms)=%s, ",len(terms))
+                print('IT LOOKS LIKE THERE ARE NO F*CKIN WEIGHTS, len(terms)={}'.format(len(terms)))
                 continue
 
             n_benchmarks = int(terms[1])
@@ -36,7 +40,7 @@ def extract_weight_order(filename, default_weight_label=None):
                     weight_labels.append(default_weight_label)
 
             logging.debug("Found weight labels in HEPMC file: %s", weight_labels)
-
+            
             return weight_labels
 
     # Default result (no reweighting, background scenario)
