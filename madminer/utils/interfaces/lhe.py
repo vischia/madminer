@@ -18,7 +18,7 @@ def extract_observables_from_lhe_file(filename, sampling_benchmark, observables,
     new_filename, extension = os.path.splitext(filename)
     if extension == ".gz":
         if not os.path.exists(new_filename):
-            call_command("gunzip -k {}".format(filename))
+            call_command("gunzip -c {} > {}".format(filename, filename.strip(".gz")))
         filename = new_filename
 
     # Load LHE file

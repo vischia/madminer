@@ -12,9 +12,7 @@ def extract_weight_order(filename, default_weight_label=None):
     new_filename, extension = os.path.splitext(filename)
     if extension == ".gz":
         if not os.path.exists(new_filename):
-            call_command("cp {} {}_bak".format(filename,filename))
-            call_command("gunzip {}".format(filename))
-            call_command("cp {}_bak {}".format(filename,filename))
+            call_command("gunzip -c {} > {}".format(filename, filename.strip(".gz")))
         filename = new_filename
 
     with open(filename, encoding="latin-1") as file:

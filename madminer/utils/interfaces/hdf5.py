@@ -308,7 +308,7 @@ def save_events_to_madminer_file(
                 weights_sorted = [weights[key] for key in weights]
 
             # Save weights
-            weights_sorted = np.array(weights_sorted)
+            weights_sorted = np.array(weights_sorted).astype(float)
             weights_sorted = weights_sorted.T  # Shape (n_events, n_benchmarks)
             f.create_dataset("samples/weights", data=weights_sorted)
 
