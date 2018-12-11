@@ -22,8 +22,6 @@ def extract_weight_order(filename, default_weight_label=None):
             terms = line.replace('"', "").split()
 
             if len(terms) == 0 or terms[0] != "N":
-                logging.debug("IT LOOKS LIKE THERE ARE NO F*CKIN WEIGHTS. len(terms)=%s, ",len(terms))
-                print('IT LOOKS LIKE THERE ARE NO F*CKIN WEIGHTS, len(terms)={}'.format(len(terms)))
                 continue
 
             n_benchmarks = int(terms[1])
